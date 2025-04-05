@@ -3,8 +3,6 @@ os: linux
 files:
   - source: /
     destination: /home/ubuntu/CI_CD_practice
-  - source: /.env
-    destination: /home/ubuntu
 file_exists_behavior: OVERWRITE
 
 permissions:
