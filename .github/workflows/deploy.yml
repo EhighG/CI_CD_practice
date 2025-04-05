@@ -25,7 +25,10 @@ jobs:
           mysql password: ${{secrets.PASSWORD}}
 
       - name: Grant -x permission of gradlew
-        run: chmod +x ./gradlew # 직접 작업내용(쉘 명령어)을 정의할 땐 이렇게 Unrecognized named-value: 'password'.
+        # 직접 작업내용(쉘 명령어)을 정의할 땐 이렇게
+        run: |
+          pwd
+          chmod +x ./gradlew
         shell: bash # 쉘 종류도 명시
 
       - name: Make application-secret.properties
