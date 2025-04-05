@@ -1,0 +1,20 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ubuntu/CI_CD_practice
+  - source: /.env
+    destination: /home/ubuntu
+file_exists_behavior: OVERWRITE
+
+permissions:
+  - object: /home/ubuntu
+    pattern: '**'
+    owner: root
+    group: root
+
+hooks:
+  AfterInstall:
+    - location: scripts/after-deploy.sh
+      timeout: 2000
+      runas: root
