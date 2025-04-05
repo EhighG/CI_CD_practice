@@ -21,8 +21,8 @@ jobs:
         with:
           character set server: 'utf8'
           mysql database: 'rds'
-          mysql user: ${{secrets.user}}
-          mysql password: ${{secrets.password}}
+          mysql user: ${{vars.USER}}
+          mysql password: ${{secrets.PASSWORD}}
 
       - name: Grant -x permission of gradlew
         run: chmod +x ./gradlew # 직접 작업내용(쉘 명령어)을 정의할 땐 이렇게 Unrecognized named-value: 'password'.
