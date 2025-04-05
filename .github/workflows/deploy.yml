@@ -45,7 +45,8 @@ jobs:
         shell: bash
 
       - name: Build with Gradle
-        run: ./gradlew build -x test # -x : 뒤에 오는 작업을 생략하고 빌드
+        # run: ./gradlew build -x test # -x : 뒤에 오는 작업을 생략하고 빌드
+        run: ./gradlew build
         shell: bash
 
       - name: Make Zip File
