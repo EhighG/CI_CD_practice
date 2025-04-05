@@ -1,0 +1,43 @@
+name: Build and Deploy Spring Boot Project to AWS EC2
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build: # job 이름
+    runs-on: ubuntu-latest # 이러면 우분투 인스턴스를 띄워주는거??
+    steps: # 한 job은 여러개의 step들로 구성
+      - name: Checkout
+        uses: actions/checkout@v2 # import해서 쓸(혹은 호출할?) 등록된 workflow인듯.
+
+      - name: Setup Java jdk 11
+        uses: actions/setup-java@v1
+        with: # uses에 지정한 workflow를 호출할때의 파라미터인가 싶다
+          java-version: 11
+
+      - name: Setup MySQL
+        uses: samin/mysql-action@v1
+        with:
+          character set server: 'utf8'
+          mysql database: 'rds'
+          mysql user: ${{user}}
+          mysql password: ${{password}}
+
+      - name: Grant -x permission of gradlew
+        run: chmod +x ./gradlew # 직접 작업내용(쉘 명령어)을 정의할 땐 이렇게
+        shell: bash # 쉘 종류도 명시
+
+      - name: Make application-secret.properties
+        if: contains(github.ref, 'master') # branch가 master일 때
+        run: | # 요 |는 뭘지?
+          cd ./src/main/resources
+          touch ./application-secret.properties
+          echo "${{ secrets.APPLICATION }}" > ./application-secret.properties
+        shell: bash
+
+      - name: Build with Gradle
+        run: ./gradlew build -x test # -x : 뒤에 오는 작업을 생략하고 빌드
+        shell: bash
+        
+        
