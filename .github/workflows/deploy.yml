@@ -21,19 +21,19 @@ jobs:
         with:
           character set server: 'utf8'
           mysql database: 'rds'
-          mysql user: ${{user}}
-          mysql password: ${{password}}
+          mysql user: ${{secrets.user}}
+          mysql password: ${{secrets.password}}
 
       - name: Grant -x permission of gradlew
-        run: chmod +x ./gradlew # 직접 작업내용(쉘 명령어)을 정의할 땐 이렇게
+        run: chmod +x ./gradlew # 직접 작업내용(쉘 명령어)을 정의할 땐 이렇게 Unrecognized named-value: 'password'.
         shell: bash # 쉘 종류도 명시
 
       - name: Make application-secret.properties
         if: contains(github.ref, 'master') # branch가 master일 때
         run: | # 요 |는 뭘지?
           cd ./src/main/resources
-          touch ./application-secret.properties
-          echo "${{ secrets.APPLICATION }}" > ./application-secret.properties
+          touch ./application.properties
+          echo "${{ secrets.APPLICATION }}" > ./application.properties
         shell: bash
 
       - name: Build with Gradle
