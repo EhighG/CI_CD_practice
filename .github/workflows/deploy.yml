@@ -11,10 +11,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2 # import해서 쓸(혹은 호출할?) 등록된 workflow인듯.
 
-      - name: Setup Java jdk 11
+      - name: Setup Java jdk 21
         uses: actions/setup-java@v1
         with: # uses에 지정한 workflow를 호출할때의 파라미터인가 싶다
-          java-version: 11
+          java-version: 21
 
       - name: Setup MySQL
         uses: samin/mysql-action@v1
@@ -31,12 +31,12 @@ jobs:
           chmod +x ./gradlew
         shell: bash # 쉘 종류도 명시
 
-      - name: Make application-secret.properties
+      - name: Make application.yml
         if: contains(github.ref, 'master') # branch가 master일 때
         run: | # 요 |는 뭘지?
           cd ./src/main/resources
-          touch ./application.properties
-          echo "${{ secrets.APPLICATION }}" > ./application.properties
+          touch ./application.yml
+          echo "${{ secrets.APPLICATION }}" > ./application.yml
         shell: bash
 
       - name: Build with Gradle
