@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.cicdpractice;
 
 
 import org.junit.jupiter.api.Test;
