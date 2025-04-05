@@ -28,4 +28,4 @@ chmod +x $JAR_NAME
 
 echo ">$JAR_NAME 실행"
 
-nohub java -jar $JAR_NAME > /dev/null 2> /dev/null < /dev/null &
+nohup java -jar $JAR_NAME > /dev/null 2> /dev/null < /dev/null &
